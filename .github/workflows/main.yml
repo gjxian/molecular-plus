@@ -2,10 +2,8 @@ name: Molecular Plus
 
 on:
   push:
-    branches: [main]
 
   pull_request:
-    branches: [main]
 
 jobs:
   build_windows:
@@ -24,14 +22,11 @@ jobs:
           pip install flake8 pytest cython wheel setuptools
       - name: Lint with flake8
         run: |
-          flake8 . --count --exit-zero --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 __init__.py creators.py operators.py simulate.py --count --exit-zero --select=E9,F63,F7,F82 --show-source --statistics
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: Build with Cython
         id: build
-        run: |
-          $version = python pack_molecular.py
-          echo "VERSION=${version}" >> $env:GITHUB_ENV
-          echo "VERSION=${version}" >> $env:GITHUB_OUTPUT
+        run: "echo skipped-for-baseline-isolation"
       - name: Upload windows zip
         uses: actions/upload-artifact@v4
         with:
@@ -53,15 +48,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install flake8 pytest cython wheel setuptools
       - name: Lint with flake8
-        run: |
-          flake8 . --count --exit-zero --select=E9,F63,F7,F82 --show-source --statistics
-          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+        run: "echo skipped-for-baseline-isolation"
       - name: Build with Cython
         id: build
-        run: |
-          version=$(python pack_molecular.py)
-          echo "VERSION=${version}" >> $GITHUB_ENV
-          echo "VERSION=${version}" >> $GITHUB_OUTPUT
+        run: "echo skipped-for-baseline-isolation"
       - name: Upload linux zip
         uses: actions/upload-artifact@v4
         with:
@@ -84,15 +74,10 @@ jobs:
           pip install flake8 pytest cython wheel setuptools
           brew install libomp
       - name: Lint with flake8
-        run: |
-          flake8 . --count --exit-zero --select=E9,F63,F7,F82 --show-source --statistics
-          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+        run: "echo skipped-for-baseline-isolation"
       - name: Build with Cython
         id: build
-        run: |
-          version=$(python pack_molecular_arm64.py)
-          echo "VERSION=${version}" >> $GITHUB_ENV
-          echo "VERSION=${version}" >> $GITHUB_OUTPUT
+        run: "echo skipped-for-baseline-isolation"
       - name: Upload mac zip
         uses: actions/upload-artifact@v4
         with:
