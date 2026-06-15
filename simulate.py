@@ -52,6 +52,7 @@ def get_weak_map(obj, psys, par_weak):
     texm_scale = psys.settings.texture_slots[0].scale
     parlen = len(psys.particles)
     colramp = tex.color_ramp
+    computed_scale_factor = texm_scale[0] * 1.5
 
     for i in range(parlen):
         newuv = (
